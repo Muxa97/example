@@ -1,0 +1,19 @@
+{
+  "name": "atomic-id-collector",
+  "version": "1.0.0",
+  "description": "Atomic ID collector",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Atomicwallet/atomic-id-collector.git"
+  },
+  "author": "Malygin Mikhail",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Atomicwallet/atomic-id-collector/issues"
+  },
+  "homepage": "https://github.com/Atomicwallet/atomic-id-collector#readme"
+}
