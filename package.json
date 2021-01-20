@@ -4,9 +4,9 @@
   "description": "Atomic ID collector",
   "main": "src/index.ts",
   "scripts": {
-    "start": "node build/index.js",
+    "start": "node -r dotenv/config build/index.js",
     "build": "tsc",
-    "dev": "nodemon --watch \"src/**/*.ts\" --ext \"ts\" --exec \"ts-node src/index.ts\"",
+    "dev": "nodemon --watch \"src/**/*.ts\" --ext \"ts\" --exec \"ts-node -r dotenv/config src/index.ts\"",
     "lint": "./node_modules/.bin/eslint . --ext .ts",
     "lint:fix": "./node_modules/.bin/eslint . --ext .ts --fix"
   },
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Atomicwallet/atomic-id-collector#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "fastify": "^3.10.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5",

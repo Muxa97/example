@@ -2,7 +2,11 @@ import { Sequelize } from 'sequelize'
 import UserTicker from './user_ticker'
 import Ticker from './ticker'
 
-const sequelize = new Sequelize('mysql://root:12345678@localhost:3306/atomic_id_collector')
+const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB } = process.env
+
+const sequelize = new Sequelize(
+  `mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DB}`,
+)
 
 const UserTickerModel = UserTicker(sequelize)
 const TickerModel = Ticker(sequelize)
