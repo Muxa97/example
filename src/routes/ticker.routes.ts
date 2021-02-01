@@ -5,7 +5,6 @@ const tickers = (fastify: FastifyInstance, opts: any, next: (err?: Error) => voi
   fastify.post('/tickers', TickerController.create)
   fastify.post('/tickers/createMany', TickerController.createMany)
   fastify.delete('/tickers', TickerController.remove)
-  fastify.get('/tickers', TickerController.findByUser)
   next()
 }
 

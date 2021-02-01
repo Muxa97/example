@@ -1,6 +1,6 @@
 import fastify from 'fastify'
 import tickerRoutes from './routes/ticker.routes'
-import usersRoutes from './routes/user_ticker.routes'
+import usersRoutes from './routes/user.routes'
 
 const server = fastify()
 

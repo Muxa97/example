@@ -29,18 +29,6 @@ async function createMany (req: FastifyRequest, reply: FastifyReply) {
   }
 }
 
-async function findByUser (req: FastifyRequest, reply: FastifyReply) {
-  const { userId } = req.query as { userId: string }
-
-  try {
-    const tickers: TickerInstance[] = await TickerService.findByUser(userId)
-
-    reply.send(tickers)
-  } catch (error) {
-    reply.send(error)
-  }
-}
-
 async function remove (req: FastifyRequest, reply: FastifyReply) {
   const { ticker } = req.body as TickerCreationAttributes
 
@@ -57,6 +45,5 @@ async function remove (req: FastifyRequest, reply: FastifyReply) {
 export {
   create,
   createMany,
-  findByUser,
   remove,
 }
