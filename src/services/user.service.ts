@@ -31,6 +31,17 @@ async function findOrCreate (attrs: UserCreationAttributes): Promise<UserInstanc
   return createdUser
 }
 
+async function findOne ({ hash, platform, appVersion }: UserCreationAttributes): Promise<UserInstance | null> {
+  return User.findOne({
+    where: {
+      hash,
+      platform,
+      appVersion,
+    },
+    include: [Address],
+  })
+}
+
 async function remove (hash: string) {
   return User.destroy({
     where: {
@@ -41,5 +52,6 @@ async function remove (hash: string) {
 
 export {
   findOrCreate,
+  findOne,
   remove,
 }

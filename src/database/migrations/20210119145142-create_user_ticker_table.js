@@ -53,6 +53,12 @@ module.exports = {
       },
     })
     await queryInterface.createTable('user_address', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -60,12 +66,6 @@ module.exports = {
       address_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      created_at: {
-        type: Sequelize.DATE,
-      },
-      updated_at: {
-        type: Sequelize.DATE,
       },
     })
     return queryInterface.createTable('tickers', {

@@ -23,6 +23,16 @@ async function findByTickers (tickers: string[]): Promise<TickerInstance[]> {
   })
 }
 
+async function findByIds (ids: number[]): Promise<TickerInstance[]> {
+  return Ticker.findAll({
+    where: {
+      id: {
+        [Op.in]: ids,
+      },
+    },
+  })
+}
+
 async function remove (ticker: string): Promise<any> {
   return Ticker.destroy({
     where: {
@@ -35,5 +45,6 @@ export {
   create,
   createMany,
   findByTickers,
+  findByIds,
   remove,
 }
