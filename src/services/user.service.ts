@@ -1,6 +1,7 @@
 import models from '../models'
 import { UserCreationAttributes } from '../types/user'
 import { UserInstance } from '../models/user'
+import { logger } from '../logger'
 
 const { User, Address } = models
 
@@ -26,8 +27,10 @@ async function findOrCreate (attrs: UserCreationAttributes): Promise<UserInstanc
 
   const createdUser: UserInstance = await User.create(attrs)
 
-  // eslint-disable-next-line no-console
-  console.log(`User ${attrs.hash} changed platform version to ${attrs.platform} ${attrs.version}`)
+  logger.info({
+    module: 'user.service findOrCreate',
+    message: `User ${attrs.hash} changed platform version to ${attrs.platform} ${attrs.version}`,
+  })
   return createdUser
 }
 

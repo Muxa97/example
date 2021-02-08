@@ -7,6 +7,7 @@ import { AddressCreationAttributes } from '../types/address'
 import { UserInstance } from '../models/user'
 import { AddressInstance } from '../models/address'
 import { TickerInstance } from '../models/ticker'
+import { logger } from '../logger'
 
 async function create (req: FastifyRequest, reply: FastifyReply) {
   const { coins, ...user } = req.body as UserCreationAttributes & { coins: Array<{ address: string, ticker: string }> }
@@ -42,6 +43,11 @@ async function create (req: FastifyRequest, reply: FastifyReply) {
       createdAddresses,
     })
   } catch (error) {
+    logger.log({
+      level: 'error',
+      module: 'user.controller create',
+      ...error,
+    })
     reply.send(error)
   }
 }
@@ -60,6 +66,11 @@ async function findAddresses (req: FastifyRequest, reply: FastifyReply) {
       user,
     })
   } catch (error) {
+    logger.log({
+      level: 'error',
+      module: 'user.controller findAddresses',
+      ...error,
+    })
     reply.send(error)
   }
 }
@@ -83,6 +94,11 @@ async function findCoins (req: FastifyRequest, reply: FastifyReply) {
       coins: tickers.map((ticker: TickerInstance) => ticker.ticker),
     })
   } catch (error) {
+    logger.log({
+      level: 'error',
+      module: 'user.controller findCoins',
+      ...error,
+    })
     reply.send(error)
   }
 }

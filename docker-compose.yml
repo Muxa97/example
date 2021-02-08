@@ -6,16 +6,20 @@ services:
     container_name: mysql
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      - MYSQL_PASSWORD=12345678
-      - MYSQL_USER=root
-      - MYSQL_ROOT_PASSWORD=12345678
+      - MYSQL_PASSWORD_FILE=/run/secrets/mysql_password
+      - MYSQL_USER_FILE=/run/secrets/mysql_user
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_password
       - MYSQL_DATABASE=atomic_id_collector
+    secrets:
+      - mysql_root_password
+      - mysql_password
+      - mysql_user
     shm_size: '4gb'
     volumes:
       - node-db:/var/lib/mysql
     restart: on-failure
     ports:
-      - 3307:3306
+      - 3306:3306
     logging:
       driver: "json-file"
       options:
@@ -31,10 +35,9 @@ services:
       - mysql
     restart: on-failure
     environment:
-      - MYSQL_HOST=localhost
-      - MYSQL_PORT=3307
-      - MYSQL_USER=./cfg/secrets/mysql_user
-      - MYSQL_PASSWORD=./cfg/secrets/mysql_password
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - PORT=8080
     ports:
       - 8080:8080
     command: npm start

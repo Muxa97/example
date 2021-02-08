@@ -1,12 +1,13 @@
 import { Sequelize } from 'sequelize'
 import * as config from '../config'
+import { logger } from '../logger'
 import User from './user'
 import Address from './address'
 import Ticker from './ticker'
 import UserAddress from './user_address'
 
 const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB, NODE_ENV } = config
-console.log(MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
+
 const sequelize = new Sequelize(
   `mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DB}`,
   {
@@ -14,7 +15,12 @@ const sequelize = new Sequelize(
   },
 )
 
-sequelize.authenticate().catch((error) => console.log(error))
+sequelize.authenticate().catch((error) => logger.log({
+  level: 'error',
+  module: 'models/index sequelize not connected',
+  ...error,
+}))
+
 const UserModel = User(sequelize)
 const AddressModel = Address(sequelize)
 const TickerModel = Ticker(sequelize)
