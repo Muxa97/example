@@ -6,8 +6,6 @@ const MYSQL_USER = process.env.MYSQL_USER || ''
 const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || ''
 const MYSQL_DB = process.env.MYSQL_DB || 'atomic_id_collector'
 
-console.log(MYSQL_USER, MYSQL_PASSWORD)
-
 export {
   PORT,
   NODE_ENV,
