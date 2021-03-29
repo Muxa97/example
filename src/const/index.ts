@@ -1,0 +1,8 @@
+
+const PARAMETER_SERVICE_NAME = 'atomic-id-collector'
+const PARAMETER_DEFAULT_MODULE_NAME = 'default'
+
+export {
+  PARAMETER_SERVICE_NAME,
+  PARAMETER_DEFAULT_MODULE_NAME,
+}

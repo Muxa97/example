@@ -1,0 +1,57 @@
+version: "3.5"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_PASSWORD_FILE=/run/secrets/mysql_password
+      - MYSQL_USER_FILE=/run/secrets/mysql_user
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_password
+      - MYSQL_DATABASE=atomic_id_collector
+    secrets:
+      - mysql_root_password
+      - mysql_password
+      - mysql_user
+    shm_size: '4gb'
+    volumes:
+      - node-db:/var/lib/mysql
+    restart: on-failure
+    ports:
+      - 3306:3306
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    networks:
+      - atomic-id-collector
+  atomic-id-collector:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    restart: on-failure
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - PORT=8080
+    ports:
+      - 8080:8080
+    command: npm start
+    networks:
+      - atomic-id-collector
+secrets:
+  mysql_password:
+    file: ./cfg/secrets/mysql_password
+  mysql_user:
+    file: ./cfg/secrets/mysql_user
+  mysql_root_password:
+    file: ./cfg/secrets/mysql_root_password
+volumes:
+  node-db:
+networks:
+  atomic-id-collector:
+    driver: bridge

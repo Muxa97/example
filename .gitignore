@@ -2,3 +2,5 @@
 node_modules/
 build/
 *-lock.json
+.env
+cfg/secrets/
